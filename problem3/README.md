@@ -278,7 +278,7 @@ I wanted to do one last attempt, mostly to figure out how to write macros and ab
 
 I also wanted to see if I could cleanup the traits a little bit, since I got to it above mostly by blind luck (and listening to the compiler yell at me about what was missing). I was successful in getting rid of most traits except for `Int` and `FromPrimitive`.
 
-With the removal of the extraneous traits and the use of the `from_int!` macro, this actually doesn't look so bad. It might be cool if the compiler could somehow warn of unnecessary traits (e.g., `<T: Int + PartialEq>`, `PartialEq` would be unnecessary since it's inherited through the chain `Primitive -> PartialOrd -> PartialEq`, as far as I understand)
+With the removal of the extraneous traits and the use of the `from_int!` macro, this actually doesn't look so bad. It might be cool if the compiler could somehow warn of unnecessary traits (e.g., `<T: Int + PartialEq>`, `PartialEq` would be unnecessary since it's inherited through the chain `Int -> Primitive -> PartialOrd -> PartialEq`, as far as I understand)
 
 ```rust
 #![feature(macro_rules)]
