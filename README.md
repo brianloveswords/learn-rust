@@ -1,4 +1,4 @@
-# Watch me learn rust by blindly stumbling through Project Euler
+# Learning rust by blindly stumbling through Project Euler
 
 I'm trying get a handle on Rust. I went through the tutorial and some of the guides, but the best way to learn is by actually making stuff so I'm gonna try to go through as many [Project Euler](https://projecteuler.net/) problems as I can.
 
