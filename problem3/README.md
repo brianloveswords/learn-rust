@@ -97,6 +97,14 @@ RAD, okay, this makes sense – I now get what the question is asking for.
 
 After some fucking around, I stumbled my way to a solution:
 
+## First Solution
+
+I imagine this is really inefficient (but then again, isn't that the whole point of prime factorization?): `is_prime` iterates over a range every time it's called and it's called within a loop.
+
+It's also a little scary to me that only condition that ends the `for prime in prime_iter()` iteration is deeply nested in conditionals, but I can be confident that will always be hit, either by the promise of the compiler or the fundamental theorem of arithmetic.
+
+I originally coded this up using `int` instead of `i64` but when I put in `600851475143` as my test number, the compiler rightfully warned that it would overflow, which is *awesome*. I changed everything to use i64 instead, but this is probably wasteful. A better technique might be to use generic types, assuming I understand them correctly. This would make the code more reusable while saving some space in situations where input value fits into a smaller integer type.
+
 ```rust
 fn main() {
     let test_number = 600851475143;
