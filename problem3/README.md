@@ -103,7 +103,12 @@ I imagine this is really inefficient (but then again, isn't that the whole point
 
 It's also a little scary to me that only condition that ends the `for prime in prime_iter()` iteration is deeply nested in conditionals, but I can be confident that will always be hit, either by the promise of the compiler(?) or the fundamental theorem of arithmetic.
 
-I originally coded this up using `int` instead of `i64` but when I put in `600851475143` as my test number, the compiler rightfully warned that it would overflow, which is *awesome*. I changed everything to use i64 instead, but this is probably wasteful. A better technique might be to use generic types, assuming I understand them correctly. This would make the code more reusable while saving some space in situations where input value fits into a smaller integer type.
+I originally coded this up using `int` instead of `i64` but when I put in `600851475143` as my test number, the compiler rightfully warned that it would overflow, which is *awesome*. I changed everything to use i64 instead, but this is probably wasteful – especially since I could have used `u64` instead.
+
+An even better technique might be to use generic types, assuming I understand them correctly. This would make the code more reusable while saving some space in situations where input value fits into a smaller integer type.
+
+**Open question**: I wonder how using a generic type would affect a case where the input is coming from, say, the command line and couldn't be statically analyzed ahead of time? Would the compiled code be any different than in the case where the input can be statically analyzed?
+
 
 ```rust
 fn main() {
