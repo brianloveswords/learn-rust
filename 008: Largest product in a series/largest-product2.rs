@@ -2,6 +2,25 @@ use consts::INPUT;
 use std::fmt;
 mod consts;
 
+fn main() {
+    let digits: Vec<uint> = INPUT.chars().map(|c| {
+        c.to_digit(10).unwrap()
+    }).collect();
+
+    let mut max = Result { product: 0, digits: vec![0] };
+    for i in range(0, digits.len()) {
+        match product_of_next(&digits, i, 13) {
+            None => break,
+            Some(result) => if result > max {
+                println!("{}", max);
+                max = result
+            }
+        }
+    }
+    println!("{}", max)
+}
+
+
 struct Result {
     digits: Vec<uint>,
     product: u64,
@@ -26,24 +45,6 @@ impl fmt::Show for Result {
         let digits: Vec<String> = self.digits.iter().map(|x| x.to_str()).collect();
         write!(f, "{} = {}", digits.connect(" × "), self.product)
     }
-}
-
-fn main() {
-    let digits: Vec<uint> = INPUT.chars().map(|c| {
-        c.to_digit(10).unwrap()
-    }).collect();
-
-    let mut max = Result { product: 0, digits: vec![0] };
-    for i in range(0, digits.len()) {
-        match product_of_next(&digits, i, 13) {
-            None => break,
-            Some(result) => if result > max {
-                println!("{}", max);
-                max = result
-            }
-        }
-    }
-    println!("{}", max)
 }
 
 fn product_of_next(vec: &Vec<uint>, start: uint, amount: uint) -> Option<Result> {
