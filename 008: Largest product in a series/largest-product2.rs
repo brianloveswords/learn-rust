@@ -68,6 +68,7 @@ fn product_of_next(vec: &Vec<uint>, start: uint, amount: uint) -> Option<Result>
     Some(Result { product: product, digits: digits })
 }
 
+
 fn safe_get<'a, T>(vec: &'a Vec<T>, idx: uint) -> Option<&'a T> {
     if idx >= vec.len() {
         return None
@@ -75,6 +76,7 @@ fn safe_get<'a, T>(vec: &'a Vec<T>, idx: uint) -> Option<&'a T> {
     Some(vec.get(idx))
 }
 
+#[cfg(test)]
 mod tests {
     #[test]
     fn safe_get_test() {
