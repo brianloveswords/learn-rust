@@ -1,5 +1,3 @@
-extern crate debug;
-
 fn main() {
     let digits = DigitGrid {
         grid: vec![
@@ -25,7 +23,87 @@ fn main() {
             vec![01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48]]
     };
 
-    println!("{:?}", digits.transform_vertical());
+    let mut direction: &'static str = "none";
+    let mut max_product: u64 = 0;
+    let mut max_group: Vec<u8> = vec![];
+
+    for row in digits.grid.iter() {
+        for group in group_iter(row.clone(), 4) {
+            let product = get_product(&group);
+            if product > max_product {
+                direction = "Horizontal";
+                max_product = product;
+                max_group = group;
+            }
+        }
+    }
+
+    for row in digits.transform_vertical().grid.iter() {
+        for group in group_iter(row.clone(), 4) {
+            let product = get_product(&group);
+            if product > max_product {
+                direction = "Vertical";
+                max_product = product;
+                max_group = group;
+            }
+        }
+    }
+
+    for row in digits.transform_diagonal_up().grid.iter() {
+        for group in group_iter(row.clone(), 4) {
+            let product = get_product(&group);
+            if product > max_product {
+                direction = "Diagonal Up";
+                max_product = product;
+                max_group = group;
+            }
+        }
+    }
+
+    for row in digits.transform_diagonal_down().grid.iter() {
+        for group in group_iter(row.clone(), 4) {
+            let product = get_product(&group);
+            if product > max_product {
+                direction = "Diagonal Down";
+                max_product = product;
+                max_group = group;
+            }
+        }
+    }
+
+    println!("max product: {} ({}, from digits {})", max_product, direction, max_group)
+}
+
+struct GroupIter {
+    index: uint,
+    collection: Vec<u8>,
+    count: uint,
+}
+
+fn get_product(vec: &Vec<u8>) -> u64 {
+    vec.iter().fold(1u64, |a, &x| a * x as u64)
+}
+
+fn group_iter(vec: Vec<u8>, count: uint) -> GroupIter {
+    GroupIter { index: 0, collection: vec, count: count }
+}
+
+impl Iterator<Vec<u8>> for GroupIter {
+    fn next(&mut self) -> Option<Vec<u8>> {
+        let idx = self.index;
+        let mut results: Vec<u8> = Vec::new();
+
+        self.index += 1;
+        for i in range(idx, idx + self.count) {
+            let value = self.collection.as_slice().get(i);
+            if value.is_none() {
+                return None;
+            }
+            results.push(*value.unwrap());
+        }
+
+        Some(results)
+    }
 }
 
 struct DigitGrid {
