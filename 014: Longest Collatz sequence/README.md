@@ -168,3 +168,13 @@ fn main() {
     println!("result: {}", result)
 }
 ```
+
+## Addendum
+
+I just learned about the `--opt-level 3` flag for the compiler. This changes the whole game:
+
+Version 1: ~1200ms (baseline)
+Version 2: ~200ms (6x better)
+Version 3: ~6000ms (5x *worse*)
+
+With compiler optimization the second version is showing even better than the 4x improvement I initially expected! The 3rd version is of course still garbage, but not nearly as bad as it was.

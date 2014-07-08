@@ -43,7 +43,6 @@ fn main() {
         spawn(proc() {
             let start = if idx == 1 { 1 } else { max/cores * (idx - 1) };
             let end = max/cores * idx;
-            println!("start, end: {}, {}", start, end);
             let result = range(start, end)
                 .rev()
                 .map(CollatzSeq::new)
