@@ -29,7 +29,7 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
 
 It works but it's a little slow: it takes about 8 seconds on my machine to come up with a result. This isn't terrible, but I want to see how I can make it faster. As I see it there are two ways this can go: threads to parallelize the map, or a dictionary to store previous Collatz sequences so we can lookup to see if a previous chain has been calculated.
 
-```
+```rust
 use std::fmt;
 struct CollatzSeq {
     seq: Vec<u64>
